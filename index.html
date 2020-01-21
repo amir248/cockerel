@@ -1,0 +1,319 @@
+<script>
+let y;
+</script>
+<html>
+<meta charset="utf-8">
+<title>Game cockerel</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+    #line {
+        width: 100%;
+        height: 100%;
+        display: flex;
+    }
+    #line1 {
+        width: 25%;
+        height: 100%;
+        background-color: rgb(201, 230, 185);
+        flex-flow: row;
+    }
+    #line2 {
+        width: 25%;
+        height: 100%;
+        background-color: rgb(201, 230, 185);
+    }
+    #line3 {
+        width: 25%;
+        height: 100%;
+        background-color: rgb(201, 230, 185);
+        flex-flow: row;
+    }
+    #line4 {
+        width: 25%;
+        height: 100%;
+        background-color: rgb(201, 230, 185);
+    }
+    #line5 {
+        width: 25%;
+        height: 100%;
+        background-color: rgb(201, 230, 185);
+        flex-flow: row;
+    }
+    #line6 {
+        width: 25%;
+        height: 100%;
+        background-color: rgb(201, 230, 185);
+    }
+    .pic_push_down {
+        display: block;
+        position: relative;
+        max-width: 100%;
+        max-height: 100%;
+        margin-left: 25%;
+        margin-Right: 50%;
+        top: 77%;
+    }
+    #side {
+        background-color: azure;
+        width: 70%;
+    }
+
+    button {
+        background-color: red;
+        border: 10px;
+        width: 50px;
+        height: 75px;
+    }
+    .info {
+        display: block;
+        position: absolute;
+        text-align: center;
+        margin-left: 50%;
+        margin-right: 50%;
+        top: 5%;
+    }
+    .hedge_stone1, .hedge_stone6, .hedge_stone2, .hedge_stone3, .hedge_stone4, .hedge_stone5 {
+        position: absolute;
+        margin-left: 5px;
+        width: 50px;
+        height: 50px;
+        top: -50px;     
+        background-color: brown;
+    }
+</style>
+
+<body>
+    <div id="line">
+        <div id="line1">
+            <p class="pic_push_down" id='pic1'></p>
+            <p class="hedge_stone1"></p>
+        </div>
+        <div id="line2">
+            <p class="pic_push_down line2" id='pic2'></p>
+            <p class="hedge_stone2"></p>
+        </div>
+        <div id="line3">
+            <p class="pic_push_down" id='pic3'></p>
+            <p class='hedge_stone3'></p>
+        </div>
+        <div id="line4">
+            <p class="pic_push_down" id='pic4'></p>
+            <p class='hedge_stone4'></p>
+        </div>
+        <div id="line5">
+            <p class="pic_push_down" id='pic5'></p>
+            <p class='hedge_stone5'></p>
+        </div>
+        <div id="line6">
+            <p class="pic_push_down" id='pic6'></p>
+            <p class="hedge_stone6"></p>
+        </div>
+        <div id="side">
+            <div align="center">
+                <br>
+                <button onClick="left_button()">
+                <=</button> <button onClick="right_button()">=>
+                </button>
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="info">тут инфо</div>
+
+    <!-- Тут решение с гитхаба 
+        <div align="center">
+        <button id="prevButton">left</button>
+        <button id="nextButton">right</button>
+    </div>-->
+    <!--остальное решение с гит хаба закоментино в низу -->
+    <style>
+        .alert {
+          padding: 15px;
+          border: 1px solid #d6e9c6;
+          border-radius: 4px;
+          color: #3c763d;
+          background-color: #dff0d8;
+        }
+        </style>
+        <script>
+        /* еще не понятно для чего это но может пригодиться. */
+          let div = document.createElement('div');
+          div.className = "alert";
+          div.innerHTML = "<strong>Всем привет!</strong> Вы прочитали важное сообщение.";
+        
+          document.body.append(div);
+        </script>
+    <script>
+        /* нужно создать цсс стиль чтобы динамически генирировать новые блоки */
+        /*let style = document.createElement('rande_hedge_stone');
+        style.type= 'text/css';
+        style.innerHTML = '.cssClass { color: #F00; }';
+        document.getElementsByTagName('head')[0].appendChild(style);
+        document.getElementById('someElementId').className = 'cssClass';*/
+        /* ----------------------------------------
+        Большой скрипт с препятствиями и временем
+        -------------------------------------------*/
+        for(y = 0; y <25; y++); // для будущего переменная в начале док
+        setInterval(randomBlock, 1000);
+    function randomBlock(){
+        /* if(stone.style.display = "none"){
+            stone.style.diplay = 'block';
+        } */ // это условие тут не работает но суть ясна! Его надо сделать.
+            let rand7 = Math.random().toFixed(1);
+            let number;
+            if(rand7<=0.2){
+                number = 6;
+            }else if(rand7>=0.2&&rand7<=0.3){
+                number = 5;
+            }else if(rand7>=0.4&&rand7<=0.5){
+                number = 4;
+            }else if(rand7>0.5&&rand7<=0.6){
+                number = 3;
+            }else if(rand7>0.6&&rand7<=0.8){
+                number = 2;
+            }else if(rand7>0.8){
+                number = 1;
+            }else{
+                console.log('что то пошло не так.');
+            }
+        console.log(rand7);
+        console.log(number);
+        let stone = document.querySelector('.hedge_stone'+[number]);
+        let distance_window = document.documentElement.clientHeight;/*Тут была какаето задумка, но сейчас это пустует.*/
+        let distance_stone =0;
+        function peremeshenie() {
+            stone.style.top = distance_stone;
+            if (distance_stone < window.innerHeight -50) { /* innerWidth - окно экрана в высоту*/
+                distance_stone = distance_stone + 1;
+            }
+            if(distance_stone>window.innerHeight-51){
+                stone.style.display ='none';
+            } 
+        }
+        setInterval(peremeshenie, 20); 
+    } 
+        // -----------------------------------
+        //-----переменные для управления-----
+        //-----------------------------------
+        var rightPressed = false;
+        var leftPressed = false;
+        var jumpPressed = false;
+        var upPressed = false;
+        var downPressed = false;
+        // ------------------------------------
+/* скрипт тут ля управления перемещениями с клавиатура */
+        document.addEventListener('keydown', keyDownHangler, false);
+        function keyDownHangler(e) {
+            if (e.key == "f") {
+                right_button();
+            } else if (e.key == "s") {
+                left_button();
+            } else {
+                return;
+            }
+        }
+        if (keyDown = 'KeyF') {
+            right_button();
+        }
+        if (right_button) {
+            left_button();
+        }
+        document.onkeypress = function (event) {
+
+            console.log(event);
+        }
+        var i = 3;
+        var pic = document.getElementById('pic' + i).innerHTML = '<img id="cockerel.png" src="https://i.ibb.co/Gnk5Ln3/cockerel.png" alt="cockerel" border="0" width="50px">';
+
+        function left_button() {
+            if (i > 1) {
+                i = i - 1;
+                document.querySelector('#pic' + i).innerHTML = '<img id="cockerel.png" src="https://i.ibb.co/Gnk5Ln3/cockerel.png" alt="cockerel" border="0" width="50px">';
+                document.querySelector('#pic' + (i + 1)).innerHTML = ' ';
+                console.log(i);
+            } else if (i <= 1) {
+                return;
+            }
+        }
+        function right_button() {
+            if (i < 6) {
+                i++;
+                document.querySelector('#pic' + i).innerHTML = '<img id="cockerel.png" src="https://i.ibb.co/Gnk5Ln3/cockerel.png" alt="cockerel" border="0" width="50px">';
+                document.querySelector('#pic' + (i - 1)).innerHTML = '';
+                console.log(i);
+            }
+            else if (i >= 6) {
+                return;
+            }
+        }
+
+
+        /* document.onkeypress = function(event){
+            console.log(event);
+        }
+        var carousel = function (){
+return {
+  init: function(elem){
+  let link = 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Rooster02.jpg',
+        img = '<img id="image" src="'+link+'" width="50px">';
+  this.setImage(img);
+  document.onkeydown = this.checkKey;
+},
+setImage: function(imageNode){
+    document.getElementById('pic1').innerHTML = imageNode;
+},
+checkKey: function (e){
+  e = e || window.event;
+  let pictures = document.getElementById('line').querySelectorAll('.pic_push_down'),
+      pictLength = pictures.length,
+            nextButton = document.querySelector('#nextButton'),
+      prevButton = document.querySelector('#prevButton'),
+      image = document.querySelector('#image'),
+      current = image.closest('p.pic_push_down').parentElement;
+  if (e.keyCode == '37') {
+        let prevElem = current.previousElementSibling;
+    if (prevElem) {
+        prevElem.querySelector('p.pic_push_down').prepend(image);
+    } else {
+        pictures[pictLength-1].prepend(image);
+    }
+  }
+  else if (e.keyCode == '39') {
+        let nextElem = current.nextElementSibling;
+    if (nextElem) {
+        nextElem.querySelector('p.pic_push_down').prepend(image);
+    } else {
+        pictures[0].prepend(image);
+    }
+  }
+}
+}
+}();
+carousel.init();
+let prev = document.getElementById('prevButton'),
+    next = document.getElementById('nextButton');
+prev.onclick = function() {
+carousel.checkKey({keyCode:37});
+};
+next.onclick = function() {
+carousel.checkKey({keyCode:39});
+}
+*/
+        // прокрутка 
+        let pripX = document.documentElement.clientWidth / 2;
+        let pripY = document.documentElement.clientHeight / 2;
+        let elem_objekt = document.elementFromPoint(991, 500);
+        //elem_objekt.innerHTML = '<img src="S-novym-godom.png" width="150px">'
+
+        let centerX = document.documentElement.clientWidth / 2;
+        let centerY = document.documentElement.clientHeight / 2;
+
+        let elem = document.elementFromPoint(centerX, centerY);
+    </script/</script>>
+</body>
+
+</html>
