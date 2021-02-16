@@ -7,6 +7,11 @@
         padding: 0;
         margin: 0;
     }
+    body{
+        display:flex;
+        max-width: 100%;
+        max-height: 100%;
+    }
     button {
         background-color: rgba(230, 180, 180, 0.158);
         border: 10px;
@@ -39,15 +44,20 @@
         
     }
     .row {
+        display:flex;
+        align-items: center;
+        justify-content: center;
         width: 25%;
         height: 100%;
         background-color: rgb(201, 230, 185);
         flex-flow: row;
         /* border: 1px solid rgb(128, 226, 128); */
     }
-    #cocorel{
+    #cockerel{
         display:flex;
-        height: 50%;
+        justify-content: center;
+        align-items: center;
+        top: 50%;
     }
 </style>
 <body>
