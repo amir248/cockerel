@@ -50,7 +50,7 @@
         width: 25%;
         height: 100%;
         background-color: rgb(201, 230, 185);
-        flex-flow: row;
+        /* flex-flow: row; */
         /* border: 1px solid rgb(128, 226, 128); */
     }
     #cockerel{
@@ -99,8 +99,8 @@
         /* еще не понятно для чего это но может пригодиться. */
           let div = document.createElement('div');
           div.className = "alert";
-          div.innerHTML = "<strong>Всем привет!</strong> Тут в планах выводить оповещение.";
-        
+          div.innerHTML = `${message}`;
+            let message = "message";
           document.body.append(div);
         </script>
     <script>
