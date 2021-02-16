@@ -140,11 +140,11 @@ document.addEventListener('keydown', keyDownHangler, false);
             console.log(event);
         }
         var i = 3;
-        var pic = document.getElementById('pic' + i).innerHTML = '<img id="cockerel.png" src="cockerel.png" width="50px">';
+        var pic = document.getElementById('pic' + i).innerHTML = '<img id="cockerel" src="cockerel.png" width="50px">';
         function left_button() {
             if (i > 1) {
                 i = i - 1;
-                document.querySelector('#pic' + i).innerHTML = '<img id="cockerel.png" src="cockerel.png" width="50px">';
+                document.querySelector('#pic' + i).innerHTML = '<img id="cockerel" src="cockerel.png" width="50px">';
                 document.querySelector('#pic' + (i + 1)).innerHTML = ' ';
                 console.log(i);
             } else if (i <= 1) {
@@ -154,7 +154,7 @@ document.addEventListener('keydown', keyDownHangler, false);
         function right_button() {
             if (i < 6) {
                 i++;
-                document.querySelector('#pic' + i).innerHTML = '<img id="cockerel.png" src="cockerel.png" width="50px">';
+                document.querySelector('#pic' + i).innerHTML = '<img id="cockerel" src="cockerel.png" width="50px">';
                 document.querySelector('#pic' + (i - 1)).innerHTML = '';
                 console.log(i);
             }
