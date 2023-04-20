@@ -17,7 +17,7 @@
         background-color: rgba(230, 180, 180, 0.158);
         border: 10px;
         width: 50px;
-        height: 75px;   
+        height: 75px;
     }
     .info {
         display: block;
@@ -32,7 +32,7 @@
         margin-left: 5px;
         width: 11%;
         height: 50px;
-        top: -50px;     
+        top: -50px;
         background-color: brown;
     }
     .flex {
@@ -42,7 +42,7 @@
     }
     .flex2{
         bottom: 4px;
-        
+
     }
     .row {
         display:flex;
@@ -52,7 +52,7 @@
         height: 100%;
         background-color: rgb(201, 230, 185);
         /* flex-flow: row; */
-        /* border: 1px solid rgb(128, 226, 128); */
+        border: 1px solid rgb(128, 226, 128);
     }
     #cockerel{
         display:block;
@@ -79,9 +79,9 @@
                 </button>
                 <br>
             </div>
-    
+
     </div>
-    <div class="info">тут инфо</div>
+    <!-- <div class="info">тут инфо</div> -->
     <style>
         .alert {
           padding: 15px;
@@ -99,9 +99,12 @@
         <script>
         /* еще не понятно для чего это но может пригодиться. */
           let div = document.createElement('div');
-          div.className = "alert";
+          // document.querySelector('.info').style.cssText=`color:white;`
+          div.className = "info";
+          // let computedStyle= getComputedStyle();
+          // computedStyle.border='3px solid red;'
+          let message = "message oK !!!";
           div.innerHTML = `${message}`;
-            let message = "message";
           document.body.append(div);
         </script>
     <script>
@@ -111,7 +114,7 @@
 
         function addBlock() {
             let line = document.getElementsByClassName("row")[Math.floor(Math.random() * 6)];
-            let block = document.createElement("p");    
+            let block = document.createElement("p");
             block.classList.add("hedge_stone");
             line.appendChild(block);
             let distance_stone = 0;
@@ -148,12 +151,12 @@ document.addEventListener('keydown', keyDownHangler, false);
                 return;
             }
         }
-        if (keyDown = 'KeyF') {
-            right_button();
-        }
-        if (right_button) {
-            left_button();
-        }
+        // if (keyDown = 'KeyF') {
+        //     right_button();
+        // }
+        // if (right_button) {
+        //     left_button();
+        // }
         document.onkeypress = function (event) {
             console.log(event);
         }
