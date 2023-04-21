@@ -34,6 +34,7 @@
         height: 50px;
         top: -50px;
         background-color: brown;
+        opacity:1;
     }
 
     .flex {
@@ -61,7 +62,8 @@
         height: 100%;
         background-color: rgb(201, 230, 185);
         /* flex-flow: row; */
-        border: 1px solid rgb(128, 226, 128);
+        /* border: 1px solid rgb(128, 226, 128); */
+        opacity:1;
     }
     #cockerel{
         display:block;
@@ -71,6 +73,7 @@
         border-radius: 25%;
         background-color: chocolate ;
         bottom:10%;
+        opacity:1;
     }
     /* #pic1,#pic2,#pic3,#pic4,#pic5,#pic6{
       position:relative;
@@ -90,6 +93,7 @@
                 <=</button> <button onClick="right_button()">=>
                 </button>
                 <br>
+                <span id='timer'></span>
             </div>
 
     </div>
@@ -109,7 +113,6 @@
             </div>
 
     </div>
-    <!-- <div class="info">тут инфо</div> -->
     <style>
         .info {
           padding: 15px;
@@ -125,20 +128,44 @@
         }
         </style>
         <script>
-        /* еще не понятно для чего это но может пригодиться. */
+        /* отображение текста на экране */
           let div = document.createElement('div');
-          // document.querySelector('.info').style.cssText=`color:white;`
           div.className = "info";
-          // let computedStyle= getComputedStyle();
-          // computedStyle.border='3px solid red;'
-          let message = "message oK !!!";
+          let message = "Click here to start game or keygen Ener!!! KeyDown \'S\' - left, KeyDon \'F\' - Right";
           div.innerHTML = `${message}`;
           document.body.append(div);
-        </script>
-    <script>
-    let interval = setInterval(() => {
-            addBlock();
-        }, 3000);
+
+    let count=+0;
+    let oK=300;
+    let intervall=0;
+    let timer=+0;
+    let ti=+0;
+    let ti2=100;
+    document.querySelector('.info').addEventListener('click',goPlayGame);
+    // window.addEventListener('keydown',(e)=>{
+    //   if(e.key=='Enter'){
+    //     goPlayGame();
+    //   }
+    // })
+function goPlayGame(){
+    count++;
+    if(count==1){
+      intervall=setInterval(()=>addBlock(),`${oK}`);
+      timer=setInterval(()=>{document.getElementById('timer').innerHTML='<span style="color:green;font-size:20px;border:3px solid green;">' +`${ti++}`+'</span>'},`${ti2}`);
+      div.innerHTML="go!";
+    }else if(count==2){
+      clearInterval(intervall);
+      clearInterval(timer);
+      // clearInterval(interval);
+      console.log(count+"_"+'and'+oK);
+      div.innerHTML="<span style='color:red'>paused!</span>";
+      count=0
+    }else{
+      oK=300;
+      console.log(count+"_"+'and'+oK);
+      count=0;
+    }
+  }
 
         function addBlock() {
             let line = document.getElementsByClassName("row")[Math.floor(Math.random() * 6)];
@@ -151,6 +178,7 @@
                 block.style.top = distance_stone;
                 if (distance_stone < window.innerHeight - 50) { /* innerWidth - окно экрана в высоту*/
                     distance_stone = distance_stone + 1;
+                    console.log(distance_stone);
                 }
                 if (distance_stone > window.innerHeight - 51) {
                     // block.style.display = 'none';
@@ -162,11 +190,11 @@
         // -----------------------------------
         //-----переменные для управления-----
         //-----------------------------------
-        var rightPressed = false;
-        var leftPressed = false;
-        var jumpPressed = false;
-        var upPressed = false;
-        var downPressed = false;
+        // var rightPressed = false;
+        // var leftPressed = false;
+        // var jumpPressed = false;
+        // var upPressed = false;
+        // var downPressed = false;
         // ------------------------------------
 /* скрипт тут ля управления перемещениями с клавиатура */
 document.addEventListener('keydown', keyDownHangler, false);
@@ -177,6 +205,20 @@ document.addEventListener('keydown', keyDownHangler, false);
                 left_button();
             }else if(e.key==' '){
               console.log('Space');
+            }else if(e.key=='Enter'){ // goPlayGame
+              goPlayGame();
+            }else if(e.key=="S"){
+              left_button();
+            }else if(e.key=="F"){
+              right_button();
+            }else if(e.key=="Ы"){
+              left_button();
+            }else if(e.key=="А"){
+              right_button();
+            }else if(e.key=="ы"){
+              left_button();
+            }else if(e.key=="а"){
+              right_button();
             } else {
                 return;
             }
@@ -213,6 +255,14 @@ document.addEventListener('keydown', keyDownHangler, false);
                 return;
             }
         }
+        let promise = new Promise((resolve,reject)=>{
+          setTimeout(()=>{
+            // resolve('oooooK');
+            reject(new Error('8===>'));
+          },1000);
+        });
+        // promise.then((data)=>console.log(data));
+        promise.catch((error)=>console.log(error));
     </script>
 </body>
 
