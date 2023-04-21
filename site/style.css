@@ -1,0 +1,88 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+body{
+    display:flex;
+    max-width: 100%;
+    max-height: 100%;
+    background-color: rgba(255, 127, 80, 0.219);
+}
+button {
+    background-color: rgba(230, 180, 180, 0.158);
+    border: 10px;
+    width: 50px;
+    height: 75px;
+}
+.info {
+    display: block;
+    position: absolute;
+    text-align: center;
+    margin-left: 50%;
+    margin-right: 50%;
+    top: 5%;
+}
+.hedge_stone{
+    position:absolute;
+    margin-left: 5px;
+    width: 11%;
+    height: 50px;
+    top: -50px;
+    background-color: brown;
+    opacity:1;
+}
+
+.flex {
+    width: 90%;
+    height: 100%;
+    display: flex;
+}
+.flexTwo{
+  position:fixed;
+  width: 90%;
+  height: 100%;
+  display: flex;
+  opacity:0.3;
+}
+.flex2{
+    bottom: 4px;
+
+}
+.row {
+    display:flex;
+    /* position:static; */
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    height: 100%;
+    background-color: rgb(201, 230, 185);
+    /* flex-flow: row; */
+    /* border: 1px solid rgb(128, 226, 128); */
+    opacity:1;
+}
+#cockerel{
+    display:block;
+    position:absolute;
+    width:25px;
+    height: 30px;
+    border-radius: 25%;
+    background-color: chocolate ;
+    bottom:10%;
+    opacity:1;
+}
+/* #pic1,#pic2,#pic3,#pic4,#pic5,#pic6{
+  position:relative;
+} */
+
+.info {
+  padding: 15px;
+  border: 1px solid #d6e9c6;
+  border-radius: 4px;
+  color: #3c763d;
+  background-color: #dff0d8;
+  position: absolute;
+  display: block;
+  top: 5%;
+  margin-right: 40%;
+  margin-left: 40%;
+}
