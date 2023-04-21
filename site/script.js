@@ -18,24 +18,24 @@ document.querySelector('.info').addEventListener('click',goPlayGame);
 //   }
 // })
 function goPlayGame(){
-count++;
-if(count==1){
-intervall=setInterval(()=>addBlock(),`${oK}`);
-timer=setInterval(()=>{document.getElementById('timer').innerHTML='<span style="color:green;font-size:20px;border:3px solid green;">' +`${ti++}`+'</span>'},`${ti2}`);
-div.innerHTML="go!";
-}else if(count==2){
-clearInterval(intervall);
-clearInterval(timer);
-// clearInterval(interval);
-console.log(count+"_"+'and'+oK);
-div.innerHTML="<span style='color:red'>paused!</span>";
-count=0
-}else{
-oK=3000;
-console.log(count+"_"+'and'+oK);
-count=0;
-}
-}
+  count++;
+  if(count==1){
+      intervall=setInterval(()=>addBlock(),`${oK}`);
+      timer=setInterval(()=>{document.getElementById('timer').innerHTML='<span style="color:green;font-size:20px;border:3px solid green;">' +`${ti++}`+'</span>'},`${ti2}`);
+      div.innerHTML="go!";
+    }else if(count==2){
+      clearInterval(intervall);
+      clearInterval(timer);
+      // clearInterval(interval);
+      console.log(count+"_"+'and'+oK);
+      div.innerHTML="<span style='color:red'>paused!</span>";
+      count=0
+    }else{
+      oK=3000;
+      console.log(count+"_"+'and'+oK);
+      count=0;
+    }
+}//goPlayGame
 
 function addBlock() {
   let randomLine=Math.floor(Math.random() * 6);
@@ -52,9 +52,12 @@ function addBlock() {
             distance_stone = distance_stone + 1;
             console.log(distance_stone);
             // let bot=document.querySelector('.hedge_stone').style.cssText=`bottom:10%;`
-            if(document.querySelector('.hedge_stone').style.bottom=`10%`){
               console.log('!!!!'+distance_stone+' '+document.querySelector('#cockerel').getBoundingClientRect().top);
-              console.log(document.querySelector('#cockerel').getBoundingClientRect());
+              // console.log(document.querySelector('#cockerel').getBoundingClientRect());
+              if(document.querySelector('#cockerel').getBoundingClientRect().top<=distance_stone&&document.querySelector('#cockerel').getBoundingClientRect().top+10>distance_stone){
+                if(randomLine==document.querySelector('#cockerel')){
+                  console.log('!!!!!!!!!!!!!!!!!!!!');
+                }
             }
         }
         if (distance_stone > window.innerHeight - 51) {
