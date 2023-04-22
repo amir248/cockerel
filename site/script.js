@@ -41,6 +41,7 @@ function goPlayGame(){
     }
 }//goPlayGame
 
+
 function addBlock() {
   let randomLine=Math.floor(Math.random() * 6);
     let line = document.getElementsByClassName("row")[randomLine];
@@ -177,50 +178,58 @@ function right_button() {
 
 
 function fakerGame(){
-  const count={
-    oK:0
-  };
-  function ret(x){
-    x+1;
-    // retrn x;
-    // if(count.oK==0){
-    //   count.oK++;
-    //
-    // }else if(count.oK==1){
-    //   count.oK++;
-    // }else if(count.oK=2){
-    //   count.oK++;
-    // }else if(count.oK=3){
-    //   count.oK++;
-    // }
-    // return count.oK;
-  }
+    const count={
+        oK:+0
+      };
+  // if(localStorage.getItem(life,`${count.oK}`)==0){
+  // }else{
+  //   localStorage.setItem(life, `${count.oK}`);
+  //   console.log('lese');
+  // }
+
   setTimeout(()=>{
     document.querySelector('.info').style.cssText=`background:#dff0d8;`
   },100);
-  console.log(ret(count.oK));
-  document.querySelector('.info').style.cssText=`background:red;`
-  if(count.oK==1){
-    life.innerHTML=`❤️❤️❤️❤️❤️❤️🖤`;
-    ret();
-  }else if(count.oK==2){
-    life.innerHTML=`❤️❤️❤️❤️❤️🖤🖤`;
-    ret();
-  }else if(count.oK==3){
-    life.innerHTML=`❤️❤️❤️🖤🖤🖤`;
-    count.oK++;
-    count.oK++;
-  }else if(count.oK==4){
-    life.innerHTML=`❤️❤️🖤🖤🖤🖤`;
-    count.oK++;
-  }else if(count.oK==5){
-    life.innerHTML=`❤️🖤🖤🖤🖤🖤`;
-    count.oK++;
-  }else if(count.oK==6){
-    life.innerHTML=`🖤🖤🖤🖤🖤🖤`;
-    count.oK++;
 
-  }else{
-    console.log(count.oK);
-  }
+  document.querySelector('.info').style.cssText=`background:red;`
+    oK();
+
+
+  function oK(){
+      setTimeout(()=>{
+      // `${count.oK++}`;
+      // console.log(localStorage.getItem('life'));
+      // console.log(count.oK);
+        if(localStorage.getItem('life')==undefined){
+          life.innerHTML=`❤️❤️❤️❤️❤️❤️🖤`;
+          // count.oK++;
+          localStorage.setItem('life', 6);
+          console.log(localStorage.getItem('life'));
+          // return localStorage.setItem('life',1);
+        }else if(localStorage.getItem('life')==6){
+          life.innerHTML=`❤️❤️❤️❤️❤️🖤🖤`;
+          // count.oK++;
+          localStorage.setItem('life', 5);
+        }else if(localStorage.getItem('life')==5){
+          life.innerHTML=`❤️❤️❤️🖤🖤🖤`;
+          // count.oK++;
+          localStorage.setItem('life', 4);
+        }else if(localStorage.getItem('life')==4){
+          life.innerHTML=`❤️❤️🖤🖤🖤🖤`;
+          // count.oK++;
+          localStorage.setItem('life', 3);
+        }else if(localStorage.getItem('life')==3){
+          life.innerHTML=`❤️🖤🖤🖤🖤🖤`;
+          // count.oK++;
+          localStorage.setItem('life', 2);
+        }else if(localStorage.getItem('life')==2){
+          life.innerHTML=`🖤🖤🖤🖤🖤🖤`;
+          // count.oK++;
+          localStorage.setItem('life', 1);
+        }else{
+          console.log(localStorage.getItem('life'));
+          localStorage.setItem('life', `${count.oK--}`);
+        }
+      },30);
+    }
 }
