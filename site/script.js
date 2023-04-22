@@ -5,6 +5,10 @@
   div.innerHTML = `${message}`;
   document.body.append(div);
 
+  let life = document.createElement('div');
+  // life.className
+    life.innerHTML=`❤️❤️❤️❤️❤️❤️❤️`;
+    document.body.append(life);
 let count=+0;
 let oK=3000;
 let intervall=0;
@@ -170,11 +174,53 @@ function right_button() {
 // keyDown('right',()=>{
 //   player.move(MOVE_SPEED, 0);
 // })
+
+
 function fakerGame(){
-  
+  const count={
+    oK:0
+  };
+  function ret(x){
+    x+1;
+    // retrn x;
+    // if(count.oK==0){
+    //   count.oK++;
+    //
+    // }else if(count.oK==1){
+    //   count.oK++;
+    // }else if(count.oK=2){
+    //   count.oK++;
+    // }else if(count.oK=3){
+    //   count.oK++;
+    // }
+    // return count.oK;
+  }
   setTimeout(()=>{
     document.querySelector('.info').style.cssText=`background:#dff0d8;`
   },100);
+  console.log(ret(count.oK));
   document.querySelector('.info').style.cssText=`background:red;`
+  if(count.oK==1){
+    life.innerHTML=`❤️❤️❤️❤️❤️❤️🖤`;
+    ret();
+  }else if(count.oK==2){
+    life.innerHTML=`❤️❤️❤️❤️❤️🖤🖤`;
+    ret();
+  }else if(count.oK==3){
+    life.innerHTML=`❤️❤️❤️🖤🖤🖤`;
+    count.oK++;
+    count.oK++;
+  }else if(count.oK==4){
+    life.innerHTML=`❤️❤️🖤🖤🖤🖤`;
+    count.oK++;
+  }else if(count.oK==5){
+    life.innerHTML=`❤️🖤🖤🖤🖤🖤`;
+    count.oK++;
+  }else if(count.oK==6){
+    life.innerHTML=`🖤🖤🖤🖤🖤🖤`;
+    count.oK++;
 
+  }else{
+    console.log(count.oK);
+  }
 }
