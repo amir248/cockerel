@@ -46,19 +46,46 @@ function addBlock() {
     let distance_stone = 0;
     let interval = setInterval(peremeshenie,1);
     function peremeshenie() {
-      console.log(randomLine);
+      // console.log(randomLine);
         block.style.top = distance_stone;
         if (distance_stone < window.innerHeight - 50) { /* innerWidth - окно экрана в высоту*/
             distance_stone = distance_stone + 1;
-            console.log(distance_stone);
+            // console.log(distance_stone);
             // let bot=document.querySelector('.hedge_stone').style.cssText=`bottom:10%;`
-              console.log('!!!!'+distance_stone+' '+document.querySelector('#cockerel').getBoundingClientRect().top);
-              console.log(document.querySelector('#cockerel').offsetParent);
-              console.log(document.querySelector('#cockerel').getBoundingClientRect());
+              // console.log('!!!!'+distance_stone+' '+document.querySelector('#cockerel').getBoundingClientRect().top);
+
+              // console.log(document.querySelector('#cockerel').getBoundingClientRect());
+              // console.log(document.querySelector('#cockerel').offsetParent);
               if(document.querySelector('#cockerel').getBoundingClientRect().top<=distance_stone&&document.querySelector('#cockerel').getBoundingClientRect().top+10>distance_stone){
-                if(randomLine==document.querySelector('#cockerel')){
-                  console.log('!!!!!!!!!!!!!!!!!!!!');
+                if(document.querySelector('#cockerel').closest('#pic1')==document.querySelector('#pic1')){
+                  if(document.querySelector('#cockerel').closest('#pic1')&&randomLine==0){
+                    console.log('#pic1!!!!!!!!!!!!!!!!!'+randomLine);
+                  }
+
+                }else if(document.querySelector('#cockerel').closest('#pic2')==document.querySelector('#pic2')){
+                  if(document.querySelector('#cockerel').closest('#pic2')&&randomLine==1){
+                    console.log('!!!pic2');
+                  }
+                }else if(document.querySelector('#cockerel').closest('#pic3')==document.querySelector('#pic3')){
+                  if(document.querySelector('#cockerel').closest('#pic2')&&randomLine==1){
+                    console.log('!!!pic3');
+                  }
+                }else if(document.querySelector('#cockerel').closest('#pic4')==document.querySelector('#pic4')){
+                  if(document.querySelector('#cockerel').closest('#pic4')&&randomLine==3){
+                    console.log('!!!pic4');
+                  }
+                }else if(document.querySelector('#cockerel').closest('#pic5')==document.querySelector('#pic5')){
+                  if(document.querySelector('#cockerel').closest('#pic5')&&randomLine==4){
+                    console.log('!!!pic5');
+                  }
+                }else if(document.querySelector('#cockerel').closest('#pic6')==document.querySelector('#pic6')){
+                  if(document.querySelector('#cockerel').closest('#pic6')&&randomLine==5){
+                    console.log('!!!pic6');
+                  }
                 }
+                // if(document.querySelector('#pic5').closest('#cockerel')){
+                //   console.log('5');
+                // }
             }
         }
         if (distance_stone > window.innerHeight - 51) {
