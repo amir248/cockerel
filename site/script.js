@@ -31,7 +31,7 @@ function goPlayGame(){
       div.innerHTML="<span style='color:red'>paused!</span>";
       count=0
     }else{
-      oK=3000;
+      oK=300;
       console.log(count+"_"+'and'+oK);
       count=0;
     }
@@ -60,27 +60,33 @@ function addBlock() {
                 if(document.querySelector('#cockerel').closest('#pic1')==document.querySelector('#pic1')){
                   if(document.querySelector('#cockerel').closest('#pic1')&&randomLine==0){
                     console.log('#pic1!!!!!!!!!!!!!!!!!'+randomLine);
+                    fakerGame();
                   }
 
                 }else if(document.querySelector('#cockerel').closest('#pic2')==document.querySelector('#pic2')){
                   if(document.querySelector('#cockerel').closest('#pic2')&&randomLine==1){
-                    console.log('!!!pic2');
+                    console.log('!!!pic2 '+randomLine);
+                    fakerGame();
                   }
                 }else if(document.querySelector('#cockerel').closest('#pic3')==document.querySelector('#pic3')){
-                  if(document.querySelector('#cockerel').closest('#pic2')&&randomLine==1){
-                    console.log('!!!pic3');
+                  if(document.querySelector('#cockerel').closest('#pic3')&&randomLine==2){
+                    console.log('!!!pic3 '+randomLine);
+                    fakerGame();
                   }
                 }else if(document.querySelector('#cockerel').closest('#pic4')==document.querySelector('#pic4')){
                   if(document.querySelector('#cockerel').closest('#pic4')&&randomLine==3){
-                    console.log('!!!pic4');
+                    console.log('!!!pic4 '+randomLine);
+                    fakerGame();
                   }
                 }else if(document.querySelector('#cockerel').closest('#pic5')==document.querySelector('#pic5')){
                   if(document.querySelector('#cockerel').closest('#pic5')&&randomLine==4){
-                    console.log('!!!pic5');
+                    console.log('!!!pic5 '+randomLine);
+                    fakerGame();
                   }
                 }else if(document.querySelector('#cockerel').closest('#pic6')==document.querySelector('#pic6')){
                   if(document.querySelector('#cockerel').closest('#pic6')&&randomLine==5){
-                    console.log('!!!pic6');
+                    console.log('!!!pic6 '+randomLine);
+                    fakerGame();
                   }
                 }
                 // if(document.querySelector('#pic5').closest('#cockerel')){
@@ -164,3 +170,11 @@ function right_button() {
 // keyDown('right',()=>{
 //   player.move(MOVE_SPEED, 0);
 // })
+function fakerGame(){
+  
+  setTimeout(()=>{
+    document.querySelector('.info').style.cssText=`background:#dff0d8;`
+  },100);
+  document.querySelector('.info').style.cssText=`background:red;`
+
+}

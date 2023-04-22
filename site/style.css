@@ -55,7 +55,7 @@ button {
     justify-content: center;
     width: 25%;
     height: 100%;
-    background-color: rgb(201, 230, 185);
+    background: rgb(201, 230, 185);
     /* flex-flow: row; */
     /* border: 1px solid rgb(128, 226, 128); */
     opacity:1;
