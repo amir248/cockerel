@@ -53,7 +53,8 @@ function addBlock() {
             console.log(distance_stone);
             // let bot=document.querySelector('.hedge_stone').style.cssText=`bottom:10%;`
               console.log('!!!!'+distance_stone+' '+document.querySelector('#cockerel').getBoundingClientRect().top);
-              // console.log(document.querySelector('#cockerel').getBoundingClientRect());
+              console.log(document.querySelector('#cockerel').offsetParent);
+              console.log(document.querySelector('#cockerel').getBoundingClientRect());
               if(document.querySelector('#cockerel').getBoundingClientRect().top<=distance_stone&&document.querySelector('#cockerel').getBoundingClientRect().top+10>distance_stone){
                 if(randomLine==document.querySelector('#cockerel')){
                   console.log('!!!!!!!!!!!!!!!!!!!!');
