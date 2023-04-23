@@ -10,7 +10,7 @@
     life.innerHTML=`❤️❤️❤️❤️❤️❤️❤️`;
     document.body.append(life);
 let count=+0;
-let oK=3000;
+let oK=300;
 let intervall=0;
 let timer=+0;
 let ti=+0;
@@ -125,7 +125,7 @@ function keyDownHangler(e) {
       }else{
         fakerGame();
         window.location.href='index.html';
-      }
+      }а
     }else if(e.key=="S"){
       left_button();
     }else if(e.key=="F"){
