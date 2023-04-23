@@ -86,3 +86,9 @@ button {
   margin-right: 40%;
   margin-left: 40%;
 }
+.life{
+  display:block;
+  position:fixed;
+  top:1%;
+  right:30%;
+}

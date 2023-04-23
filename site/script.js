@@ -6,7 +6,7 @@
   document.body.append(div);
 
   let life = document.createElement('div');
-  // life.className
+  life.className='life';
     life.innerHTML=`❤️❤️❤️❤️❤️❤️❤️`;
     document.body.append(life);
 let count=+0;
@@ -192,44 +192,55 @@ function fakerGame(){
   },100);
 
   document.querySelector('.info').style.cssText=`background:red;`
+  // setTimeout(oK(),3000);
     oK();
 
 
   function oK(){
       setTimeout(()=>{
-      // `${count.oK++}`;
+      `${count.oK--}`;
       // console.log(localStorage.getItem('life'));
-      // console.log(count.oK);
-        if(localStorage.getItem('life')==undefined){
-          life.innerHTML=`❤️❤️❤️❤️❤️❤️🖤`;
+      localStorage.setItem('life', `${count.oK--}`);
+      console.log(`${count.oK}`);
+    },3000);
+        if(localStorage.getItem('life')==undefined||localStorage.getItem('life')==-1||localStorage.getItem('life')==0){
+          // life.innerHTML=`❤️❤️❤️❤️❤️❤️🖤`;
+            life.innerHTML=`🖤🖤🖤🖤🖤🖤`;
           // count.oK++;
-          localStorage.setItem('life', 6);
+          localStorage.setItem('life', `${count.oK}`);
           console.log(localStorage.getItem('life'));
           // return localStorage.setItem('life',1);
-        }else if(localStorage.getItem('life')==6){
-          life.innerHTML=`❤️❤️❤️❤️❤️🖤🖤`;
-          // count.oK++;
-          localStorage.setItem('life', 5);
-        }else if(localStorage.getItem('life')==5){
-          life.innerHTML=`❤️❤️❤️🖤🖤🖤`;
-          // count.oK++;
-          localStorage.setItem('life', 4);
-        }else if(localStorage.getItem('life')==4){
-          life.innerHTML=`❤️❤️🖤🖤🖤🖤`;
-          // count.oK++;
-          localStorage.setItem('life', 3);
-        }else if(localStorage.getItem('life')==3){
-          life.innerHTML=`❤️🖤🖤🖤🖤🖤`;
-          // count.oK++;
-          localStorage.setItem('life', 2);
-        }else if(localStorage.getItem('life')==2){
-          life.innerHTML=`🖤🖤🖤🖤🖤🖤`;
-          // count.oK++;
-          localStorage.setItem('life', 1);
-        }else{
-          console.log(localStorage.getItem('life'));
-          localStorage.setItem('life', `${count.oK--}`);
+          div.innerHTML=`GAME OVER`;
+
+          clearInterval(intervall);
+          clearInterval(timer);
+          localStorage.setItem('life', `${count.oK}`);
+          clear('life');
         }
-      },30);
+
+        // else if(localStorage.getItem('life')==5){
+        //   life.innerHTML=`❤️❤️❤️❤️❤️🖤🖤`;
+        //   // count.oK++;
+        //   localStorage.setItem('life', `${count.oK}`);
+        // }else if(localStorage.getItem('life')==4){
+        //   life.innerHTML=`❤️❤️❤️🖤🖤🖤`;
+        //   // count.oK++;
+        //   localStorage.setItem('life', `${count.oK}`);
+        // }else if(localStorage.getItem('life')==3){
+        //   life.innerHTML=`❤️❤️🖤🖤🖤🖤`;
+        //   // count.oK++;
+        //   localStorage.setItem('life', `${count.oK}`);
+        // }else if(localStorage.getItem('life')==2){
+        //   life.innerHTML=`❤️🖤🖤🖤🖤🖤`;
+        //   // count.oK++;
+        //   localStorage.setItem('life', `${count.oK}`);
+        // }else if(localStorage.getItem('life')==1){
+        //   life.innerHTML=`🖤🖤🖤🖤🖤🖤`;
+        //   // count.oK++;
+        //   localStorage.setItem('life', `${count.oK}`);
+        // }
+        else{
+          console.log(localStorage.getItem('life'));
+        }
     }
 }
