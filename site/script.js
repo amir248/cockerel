@@ -120,7 +120,11 @@ function keyDownHangler(e) {
     }else if(e.key==' '){
       console.log('Space');
     }else if(e.key=='Enter'){ // goPlayGame
-      goPlayGame();
+      if(document.querySelector('#reboot')==null){
+        goPlayGame();
+      }else{
+        fakerGame();
+      }
     }else if(e.key=="S"){
       left_button();
     }else if(e.key=="F"){
@@ -210,12 +214,23 @@ function fakerGame(){
           localStorage.setItem('life', `${count.oK}`);
           console.log(localStorage.getItem('life'));
           // return localStorage.setItem('life',1);
-          div.innerHTML=`GAME OVER`;
+          div.innerHTML=`<h1 id='reboot'>GAME OVER</h1>`;
 
           clearInterval(intervall);
           clearInterval(timer);
           localStorage.setItem('life', `${count.oK}`);
-          clear('life');
+            localStorage.clear('life');
+          document.querySelector('#reboot').addEventListener('click',()=>{
+            window.location.href='index.html';
+          });
+          document.querySelector('#reboot').addEventListener('keydown',()=>{
+            function restart(){
+              if(event.key=='Enter'){
+                window.location.href='index.html';
+              }
+            }
+            // restart(event);
+          });
         }
 
         // else if(localStorage.getItem('life')==5){
