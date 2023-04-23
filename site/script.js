@@ -125,7 +125,7 @@ function keyDownHangler(e) {
       }else{
         fakerGame();
         window.location.href='index.html';
-      }а
+      };
     }else if(e.key=="S"){
       left_button();
     }else if(e.key=="F"){
