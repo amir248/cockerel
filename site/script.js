@@ -10,7 +10,7 @@
     life.innerHTML=`❤️❤️❤️❤️❤️❤️❤️`;
     document.body.append(life);
 let count=+0;
-let oK=300;
+let oK=700;
 let intervall=0;
 let timer=+0;
 let ti=+0;
@@ -35,7 +35,7 @@ function goPlayGame(){
       div.innerHTML="<span style='color:red'>paused!</span>";
       count=0
     }else{
-      oK=300;
+      // oK=300;
       console.log(count+"_"+'and'+oK);
       count=0;
     }
