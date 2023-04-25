@@ -56,7 +56,6 @@ function addBlock() {
         if (distance_stone < window.innerHeight - 50) { /* innerWidth - окно экрана в высоту*/
             distance_stone = distance_stone + 1;
             // console.log(distance_stone);
-            // let bot=document.querySelector('.hedge_stone').style.cssText=`bottom:10%;`
               // console.log('!!!!'+distance_stone+' '+document.querySelector('#cockerel').getBoundingClientRect().top);
 
               // console.log(document.querySelector('#cockerel').getBoundingClientRect());
