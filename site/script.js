@@ -31,12 +31,12 @@ function goPlayGame(){
       clearInterval(intervall);
       clearInterval(timer);
       // clearInterval(interval);
-      console.log(count+"_"+'and'+oK);
+      // console.log(count+"_"+'and'+oK);
       div.innerHTML="<span style='color:red'>paused!</span>";
       count=0
     }else{
       // oK=300;
-      console.log(count+"_"+'and'+oK);
+      // console.log(count+"_"+'and'+oK);
       count=0;
     }
 }//goPlayGame
