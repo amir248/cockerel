@@ -172,24 +172,13 @@ function right_button() {
         return;
     }
 }
-// const MOVE_SPEED=120;
-// keyDown('left',()=>{
-//   player.move(-MOVE_SPEED, 0);
-// });
-// keyDown('right',()=>{
-//   player.move(MOVE_SPEED, 0);
-// })
 
 
 function fakerGame(){
     const count={
         oK:+0
       };
-  // if(localStorage.getItem(life,`${count.oK}`)==0){
-  // }else{
-  //   localStorage.setItem(life, `${count.oK}`);
-  //   console.log('lese');
-  // }
+
 
   setTimeout(()=>{
     document.querySelector('.info').style.cssText=`background:#dff0d8;`
