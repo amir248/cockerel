@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Cockerel — оптимизированная версия</title>
+  <style>
+    :root{--cols:6;--col-gap:8px;--col-w:calc((100% - (var(--cols)-1)*var(--col-gap))/var(--cols));}
+    html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Arial;background:#101018;color:#e9eef8}
+    .hud{display:flex;gap:12px;align-items:center;padding:12px;background:linear-gradient(90deg,#0f1724, #11111b);box-shadow:0 2px 8px rgba(0,0,0,.6)}
+    .info{cursor:pointer;padding:8px 12px;border-radius:8px;background:#0b84ff;color:#fff;user-select:none}
+    .status{font-size:16px}
+    .life{font-size:20px}
+    .timer{font-weight:700}
+
+    #gameWrap{height:calc(100% - 64px);display:flex;align-items:flex-start;justify-content:center;padding:16px;box-sizing:border-box}
+    #game{width:900px;height:calc(100% - 32px);background:linear-gradient(#0b1220,#08101a);border-radius:12px;padding:12px;box-sizing:border-box;display:flex;gap:var(--col-gap);position:relative;overflow:hidden}
+    .col{width:var(--col-w);height:100%;background:linear-gradient(180deg,#08182622 0,#08182600 60%);border-radius:8px;position:relative}
+
+    /* player */
+    #cockerel{width:36px;height:36px;border-radius:6px;background:linear-gradient(180deg,#ffd27a,#ffb347);position:absolute;left:50%;transform:translateX(-50%);bottom:12px;box-shadow:0 6px 12px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;font-weight:700}
+
+    /* block */
+    .block{width:40px;height:40px;border-radius:6px;background:linear-gradient(180deg,#9fb6c9,#5d7a8c);position:absolute;left:50%;transform:translateX(-50%);box-shadow:0 6px 12px rgba(0,0,0,.4)}
+
+    /* small responsive */
+    @media (max-width:900px){#game{width:100%} #cockerel{width:30px;height:30px} .block{width:32px;height:32px}}
+  </style>
+</head>
+<body>
+  <div class="hud">
+    <div class="info" id="startBtn">Клик — старт / пауза (Enter)</div>
+    <div class="status">Состояние: <span id="state">готов</span></div>
+    <div class="life" id="life">❤️❤️❤️❤️❤️❤️</div>
+    <div class="timer">Время: <span id="timer">0</span> с</div>
+    <div style="margin-left:auto;font-size:13px;opacity:.8">Клавиши: S/А или ←/→</div>
+  </div>
+
+  <div id="gameWrap">
+    <div id="game" aria-label="игровое поле">
+      <!-- колонки будут динамически сгенерированы -->
+    </div>
+  </div>
+
+  <script>
+  /* Оптимизированная версия игры: один экземпляр игрока, централизованный игровой цикл, requestAnimationFrame */
+
+  class Game {
+    constructor(opts={cols:6}){
+      this.cols = opts.cols;
+      this.container = document.getElementById('game');
+      this.rows = [];
+      this.blocks = []; // {el, col, y, speed}
+      this.lastFrame = null;
+      this.running = false;
+      this.time = 0; // seconds
+      this.spawnTimer = 0;
+      this.spawnInterval = 0.8; // seconds
+      this.baseSpeed = 120; // px/sec
+      this.levelSpeedUp = 2; // speed increment per 10s
+      this.lives = 6;
+      this.playerCol = 2; // 0..cols-1
+
+      this._buildCols();
+      this._createPlayer();
+      this._bindInputs();
+      this._updateHUD();
+    }
+
+    _buildCols(){
+      this.container.innerHTML = '';
+      for(let i=0;i<this.cols;i++){
+        const col = document.createElement('div');
+        col.className = 'col';
+        col.dataset.index = i;
+        this.container.appendChild(col);
+        this.rows.push(col);
+      }
+    }
+
+    _createPlayer(){
+      this.player = document.createElement('div');
+      this.player.id = 'cockerel';
+      this.rows[this.playerCol].appendChild(this.player);
+      // ensure player positioned bottom center via CSS absolute inside column
+      this.player.style.bottom = '12px';
+    }
+
+    _bindInputs(){
+      document.getElementById('startBtn').addEventListener('click', ()=>this.toggle());
+      document.addEventListener('keydown', (e)=>{
+        const key = e.key;
+        const left = ['s','S','ы','Ы','a','A','ф','Ф','ArrowLeft'];
+        const right = ['f','F','а','А','ы','Ы','ArrowRight'];
+        if (key === 'Enter') return this.toggle();
+        if (left.includes(key)) return this.moveLeft();
+        if (right.includes(key)) return this.moveRight();
+      });
+    }
+
+    toggle(){
+      this.running = !this.running;
+      document.getElementById('state').textContent = this.running ? 'игра' : 'пауза';
+      if(this.running){
+        this.lastFrame = performance.now();
+        this.raf = requestAnimationFrame(this.frame.bind(this));
+      } else {
+        cancelAnimationFrame(this.raf);
+      }
+    }
+
+    moveLeft(){
+      if(this.playerCol>0){
+        this.rows[this.playerCol].removeChild(this.player);
+        this.playerCol--;
+        this.rows[this.playerCol].appendChild(this.player);
+      }
+    }
+    moveRight(){
+      if(this.playerCol < this.cols-1){
+        this.rows[this.playerCol].removeChild(this.player);
+        this.playerCol++;
+        this.rows[this.playerCol].appendChild(this.player);
+      }
+    }
+
+    frame(now){
+      const dt = (now - this.lastFrame)/1000; // seconds
+      this.lastFrame = now;
+      if(!this.running) return;
+
+      this.time += dt;
+      this.spawnTimer += dt;
+
+      // dynamic difficulty: reduce spawn interval over time a bit
+      const difficultyFactor = 1 - Math.min(this.time / 120, 0.6);
+      const currentSpawn = Math.max(0.25, this.spawnInterval * difficultyFactor);
+
+      if(this.spawnTimer >= currentSpawn){
+        this.spawnTimer = 0;
+        this._spawnBlock();
+      }
+
+      // update blocks
+      const speed = this.baseSpeed + Math.floor(this.time/10) * this.levelSpeedUp;
+      for(let i=this.blocks.length-1;i>=0;i--){
+        const b = this.blocks[i];
+        b.y += b.speed * dt; // px
+        b.el.style.top = b.y + 'px';
+
+        // collision: if same column and block near player's bottom
+        if(b.col === this.playerCol){
+          const playerRect = this.player.getBoundingClientRect();
+          const blockRect = b.el.getBoundingClientRect();
+          if(this._rectOverlap(playerRect, blockRect)){
+            this._hit(i);
+            continue;
+          }
+        }
+
+        // remove when off screen
+        const containerRect = this.container.getBoundingClientRect();
+        if(b.el.getBoundingClientRect().top > containerRect.bottom - 8){
+          b.el.remove();
+          this.blocks.splice(i,1);
+        }
+      }
+
+      // update HUD every second
+      if(Math.floor(this.time) !== Math.floor(this.time - dt)){
+        document.getElementById('timer').textContent = Math.floor(this.time);
+      }
+
+      // continue
+      this.raf = requestAnimationFrame(this.frame.bind(this));
+    }
+
+    _spawnBlock(){
+      const col = Math.floor(Math.random()*this.cols);
+      const el = document.createElement('div');
+      el.className = 'block';
+      el.style.top = '-48px';
+      this.rows[col].appendChild(el);
+      const speed = this.baseSpeed + Math.floor(this.time/10) * this.levelSpeedUp + (Math.random()*40-20);
+      // y relative to top of column element
+      const y = -48;
+      this.blocks.push({el, col, y, speed});
+    }
+
+    _rectOverlap(a,b){
+      return !(a.right < b.left || a.left > b.right || a.bottom < b.top || a.top > b.bottom);
+    }
+
+    _hit(blockIndex){
+      // remove block
+      const b = this.blocks[blockIndex];
+      if(b){ b.el.remove(); this.blocks.splice(blockIndex,1); }
+      // lose life
+      this.lives--;
+      this._updateHUD();
+      if(this.lives <= 0) this._gameOver();
+    }
+
+    _updateHUD(){
+      const lifeEl = document.getElementById('life');
+      const hearts = '❤️'.repeat(Math.max(0,this.lives)) + '🖤'.repeat(6-Math.max(0,this.lives));
+      lifeEl.textContent = hearts;
+      document.getElementById('timer').textContent = Math.floor(this.time);
+    }
+
+    _gameOver(){
+      this.running = false;
+      cancelAnimationFrame(this.raf);
+      document.getElementById('state').textContent = 'GAME OVER';
+      document.getElementById('startBtn').textContent = 'Перезапустить (Enter)';
+      // show big message
+      const msg = document.createElement('div');
+      msg.style.position='absolute';
+      msg.style.left='50%';
+      msg.style.top='40%';
+      msg.style.transform='translate(-50%,-50%)';
+      msg.style.background='rgba(0,0,0,.6)';
+      msg.style.padding='24px 32px';
+      msg.style.borderRadius='12px';
+      msg.style.textAlign='center';
+      msg.style.color='#fff';
+      msg.innerHTML = `<h1 style="margin:0 0 8px">GAME OVER</h1><div>Прошло <strong>${Math.floor(this.time)}</strong> с</div>`;
+      this.container.appendChild(msg);
+
+      const restart = ()=> location.reload();
+      document.addEventListener('keydown', function onEnter(e){ if(e.key==='Enter'){ document.removeEventListener('keydown',onEnter); restart(); }});
+      document.getElementById('startBtn').addEventListener('click', restart, {once:true});
+    }
+  }
+
+  // create game and start when user presses Enter or clicks
+  const game = new Game({cols:6});
+  // small helper to start by Enter
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Enter' && !game.running){ game.toggle(); }});
+
+  </script>
+</body>
+</html>
